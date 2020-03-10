@@ -99,10 +99,10 @@ func (api *IEX) Intraday(sym string, resolution time.Duration, date time.Time) (
         "includeToday": true,
         "token": api.Token,
     }
-    uri := fmt.Sprintf("%s/stock/%s/intraday-prices?",
-        iexBaseUri, sym)
+    uri := fmt.Sprintf("%s/stock/%s/intraday-prices?", iexBaseUri, sym)
     for k, v := range params {
-        uri += url.QueryEscape(fmt.Sprintf("%s=%v&", k, v))
+        inline := url.QueryEscape(fmt.Sprintf("%v", v))
+        uri += fmt.Sprintf("%s=%s&", k, inline)
     }
     uri = uri[:len(uri)-1]
     rsp, err := http.Get(uri)
