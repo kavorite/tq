@@ -82,6 +82,7 @@ func (api *IEX) Tickers() (T []Symbol, err error) {
 }
 
 func (api *IEX) Intraday(sym string, resolution time.Duration, date time.Time) (r io.Reader, err error) {
+    api.Ready()
     n := float64(resolution) / float64(time.Minute)
     n = math.Ceil(n)
     // resolution = time.Hour <=> n = 60
